@@ -151,16 +151,18 @@ int main()
             if (line == "win")
             {
                 system("cmd");
+                continue;
             }
             if (line == "lnx")
             {
                 system("bash");
+                continue;
             }
             else
             {
                 cout << "Invalid Operating System" << endl;
+                continue;
             }
-            continue;
         }
         if (line.empty())
         {
