@@ -1,26 +1,45 @@
 #include <iostream>
 #include <fstream>
-#include <filesystem>
 #include <vector>
+#include <cctype>
 
 using namespace std;
 
 int main()
 {
+    cout << "  LaZeR 1.0.0" << endl;
+    cout << "   GNU GPL 3 " << endl;
+    cout << "  Type 'hlp' for Help" << endl;
+    cout << endl;
     vector<string> lines;
     string line;
+    string file;
     int c_line;
     while (true)
     {
         cout << "  >> ";
         getline(cin, line);
-        if (line == "o")
+        if (line == "hlp")
+        {
+            cout << "  hlp : Help" << endl;
+            cout << "  opf <file> : Open File" << endl;
+            cout << "  nwl <text> : New Line" << endl;
+            cout << "  ovw <line> <text> : Overwrite Line" << endl;
+            cout << "  sve : Save" << endl;
+            cout << "  sva <file> : Save As" << endl;
+            cout << "  prv : Preview Contents" << endl;
+            cout << "  tmp : Terminate Process" << endl;
+            cout << "  dbg <os> : Debug Mode" << endl;
+            continue;
+        }
+        if (line == "opf")
         {
             cout << "  >>>> ";
             getline(cin, line);
-            if (filesystem::exists(line))
+            ifstream data(line);
+            if (data)
             {
-                ifstream data(line);
+                file = line;
                 while (data.good())
                 {
                     getline(data, line);
@@ -32,9 +51,10 @@ int main()
             {
                 cout << "Invalid File" << endl;
             }
+            data.close();
             continue;
         }
-        if (line == "n")
+        if (line == "nwl")
         {
             cout << "  >>>> ";
             getline(cin, line);
@@ -42,7 +62,7 @@ int main()
             c_line++;
             continue;
         }
-        if (line == "o")
+        if (line == "ovw")
         {
             cout << "  >>>> ";
             getline(cin, line);
@@ -56,7 +76,7 @@ int main()
                     {
                         cout << "  >>>>>> ";
                         getline(cin, line);
-                        lines[num] = line;
+                        lines[num] = line + "\n";
                     }
                     else
                     {
@@ -65,21 +85,91 @@ int main()
                 }
                 else
                 {
-                    cout << "Invalid Line";
+                    cout << "Invalid Line" << endl;
                 }
             }
-        }
-        if (line == "p")
-        {
-            for (auto line : lines)
+            else
             {
-                cout << line;
+                cout << "Invalid Line" << endl;
             }
             continue;
         }
-        if (line == "q")
+        if (line == "sve")
+        {
+            ifstream data(file);
+            string saved;
+            if (data)
+            {
+                data.close();
+                ofstream data(file, ios::trunc);
+                for (auto line : lines)
+                {
+                    saved = saved + line;
+                }
+                data << saved;
+                data.close();
+            }
+            else
+            {
+                cout << "Invalid File" << endl;
+            }
+            continue;
+        }
+        if (line == "sva")
+        {
+            cout << "  >>>> ";
+            getline(cin, line);
+            ofstream data(line, ios::trunc);
+            string saved;
+            for (auto line : lines)
+            {
+                saved = saved + line;
+            }
+            data << saved;
+            data.close();
+            continue;
+        }
+        if (line == "prv")
+        {
+            for (auto line : lines)
+            {
+                cout << "  " << line;
+            }
+            continue;
+        }
+        if (line == "tmp")
         {
             break;
+        }
+        if (line == "dbg")
+        {
+            cout << "  >>>> ?" << endl;
+            cout << "  >> win" << endl;
+            cout << "  >> lnx" << endl;
+            cout << "  >>>> ";
+            getline(cin, line);
+            if (line == "win")
+            {
+                system("cmd");
+            }
+            if (line == "lnx")
+            {
+                system("bash");
+            }
+            else
+            {
+                cout << "Invalid Operating System" << endl;
+            }
+            continue;
+        }
+        if (line.empty())
+        {
+            continue;
+        }
+        else
+        {
+            cout << "Invalid Option" << endl;
+            continue;
         }
     }
     return 0;
