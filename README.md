@@ -12,9 +12,13 @@ What are you seeing here is a LaZer's syntax, there's 9 of them.
 * sve : Save
 * sva (file) : Save As
 * prv : Preview Contents
+* dlt (line) : Delete Line
+* clr : Clear All Lines
 * tmp : Terminate Process
 * dbg (os) : Debug Mode
-You may ask: "If I wrote my software in this code editor, can I make the price of my software (NOT open-source) fair?"
+* ats (enable) : Auto Save
+
+You may ask : "If I wrote my software in this code editor, can I make its price (NOT open-source) fair?"
 The answer is yes, you can calculate the price of the software by (length of codes x 0.025).
 # LaZecript
 LaZecript is a high-level programming language for beginners, here's some example.
