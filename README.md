@@ -46,3 +46,4 @@ Out means print something to the console, but here's the catch. The Interpreter 
   ^ : New Line
   ~ : New Tab
 ```
+For more help, type help in LaZecript's IIRM aka. Interpret in Real Time.
